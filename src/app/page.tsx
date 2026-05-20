@@ -148,10 +148,10 @@ className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 text
   style={{
     fontFamily: " 'Poppins',sans-serif",
     color: "white",
-    WebkitTextStroke: "3px #124b28",
+    WebkitTextStroke: "3px #21b65a",
     textShadow: `
-      0 0 10px #124b28,
-      0 0 30px #124b28,
+      0 0 10px #21b65a,
+      0 0 30px #21b65a,
       0 10px 10px rgba(0,0,0,0.8)
     `
   }}
