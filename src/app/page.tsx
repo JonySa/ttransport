@@ -148,10 +148,10 @@ className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 text
   style={{
     fontFamily: " 'Poppins',sans-serif",
     color: "white",
-    WebkitTextStroke: "3px #249e53",
+    WebkitTextStroke: "3px #144d2a",
     textShadow: `
       0 0 10px #238649,
-      0 0 30px #1a743c,
+      0 0 30px #135c2f,
       0 10px 10px rgba(0,0,0,0.8)
     `
   }}
@@ -163,7 +163,7 @@ className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 text
   style={{
     WebkitTextStroke:  "3px #000000",
     color: "white",
-    textShadow: "0 3px 5px rgba(0,0,0,0.9)",
+    textShadow: "0 3px 3px rgba(0,0,0,0.9)",
     fontFamily: "'Poppins', sans-serif",
   }}
 >
