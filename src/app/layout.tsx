@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TTRANSPORT Austria",
+  title: "TTRANSPORT",
   description:
-    "Transport, mutări și electrocasnice second-hand în Austria.",
+    "Transport, Umzüge & Gebrauchte Elektrogeräte",
 };
 
 export default function RootLayout({
