@@ -163,7 +163,7 @@ className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 text
   style={{
     WebkitTextStroke:  "3px #000000",
     color: "white",
-    textShadow: "0 3px 10px rgba(0,0,0,0.9)",
+    textShadow: "0 3px 5px rgba(0,0,0,0.9)",
     fontFamily: "'Poppins', sans-serif",
   }}
 >
@@ -204,7 +204,7 @@ className="text-lg sm:text-xl md:text-3xl font-bold leading-relaxed text-center 
           style={{
         
         color: "white",
-        textShadow: "0 3px 10px rgba(0,0,0,0.9)",
+        textShadow: "0 3px 5px rgba(0,0,0,0.9)",
         fontFamily: "'Poppins', sans-serif",
          }}
           >
