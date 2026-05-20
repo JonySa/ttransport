@@ -204,7 +204,7 @@ className="text-lg sm:text-xl md:text-3xl font-bold leading-relaxed text-center 
           style={{
         
         color: "white",
-        textShadow: "0 3px 5px rgba(0,0,0,0.9)",
+        
         fontFamily: "'Poppins', sans-serif",
          }}
           >
