@@ -163,7 +163,7 @@ className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 text
   style={{
     WebkitTextStroke:  "3px #000000",
     color: "white",
-    textShadow: "0 3px 3px #144d2a",
+    textShadow: "0 1px 3px #144d2a",
     fontFamily: "'Poppins', sans-serif",
   }}
 >
@@ -427,76 +427,69 @@ className="text-lg sm:text-xl md:text-3xl font-bold leading-relaxed text-center 
       </section>
 
       {/* Contact Section */}
-    <section id="contact" className="bg-cover bg-center py-10 px-9" style={{backgroundImage: 'url(/poza8.png)'}}>
+ <section id="contact" className="bg-cover bg-center py-10 px-9" style={{backgroundImage: 'url(/poza8.png)'}}>
   <div className="max-w-3xl mx-auto">
     <h3 className="text-3xl font-bold mb-12 text-center text-black">
-      {currentLang === 'ro' ? 'Contactează-ne' : 'Kontaktieren Sie uns'}
-    </h3>
+      {currentLang === 'ro' ? 'Contactează-ne' : 'Kontaktieren Sie uns'} </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5"> 
-     
-          <div className="space-y-8 mb-10"> 
-                   <h3 className="text-4xl font-bold mb-8">  </h3> 
-            <div> <h4 className="text-2xl font-bold mb-2">📞Telefon:</h4>
-             <p className="text-black  font-bold text-lg md:text-2xl">00436764199392</p>
-              </div>
-               <div>
-                 <h4 className="text-2xl font-bold mb-2">📍{currentLang === 'ro' ? 'Adresa:' : 'Adresse:'}</h4>
-                  <p className="text-black  font-bold text-lg md:text-2xl">Egerdachstraße 34, 6020 Innsbruck</p> 
-                  </div>
-                 
-                      <div>
-                         <h4 className="text-2xl font-bold mb-2">⏰{currentLang === 'ro' ? 'Program:' : 'Öffnungszeiten:'}</h4>
-                          <p className="text-black  font-bold text-lg md:text-2xl"> {currentLang === 'ro' ? 'Luni' : 'Montag'} – {currentLang === 'ro' ? 'Sâmbătă' : 'Samstag'}: 08:00 – 17:00</p>
-                           </div> 
-                           </div> 
-                           <div className="bg-black-100 p-8 rounded-lg shadow-lg">
-                             <form
-  
-  onSubmit={async (e) => {
+        <div className="space-y-8 mb-10"> 
+    <h3 className="text-4xl font-bold mb-8">  </h3> 
+        <div> 
+          <h4 className="text-2xl font-bold mb-2">📞Telefon:</h4>
+            <p className="text-black  font-bold text-lg md:text-2xl">00436764199392</p>
+         </div>
+        <div> 
+          <h4 className="text-2xl font-bold mb-2">📍{currentLang === 'ro' ? 'Adresa:' : 'Adresse:'}</h4>
+            <p className="text-black  font-bold text-lg md:text-2xl">Egerdachstraße 34, 6020 Innsbruck</p> 
+         </div>
+         <div>
+          <h4 className="text-2xl font-bold mb-2">⏰{currentLang === 'ro' ? 'Program:' : 'Öffnungszeiten:'}</h4>
+             <p className="text-black  font-bold text-lg md:text-2xl"> {currentLang === 'ro' ? 'Luni' : 'Montag'} – {currentLang === 'ro' ? 'Sâmbătă' : 'Samstag'}: 08:00 – 17:00</p>
+           </div> 
+          </div> 
+           <div className="bg-black-100 p-8 rounded-lg shadow-lg">
+      
+<form
+   onSubmit={async (e) => {
     e.preventDefault();
-
     const form = e.currentTarget;
-
-    const formData = {
+     const formData = {
       name: (form.elements.namedItem("name") as HTMLInputElement).value,
       phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
-    };
-
-    const res = await fetch("/api/contact", {
+      };
+   const res = await fetch("/api/contact", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json", },
       body: JSON.stringify(formData),
-    });
-
+     });
     if (res.ok) {
-      alert("Mesaj trimis!");
+      alert("Nachricht gesendet!");
     } else {
       alert("Eroare!");
     }
   }}
 >
-  <h3 className="text-4xl font-bold mb-4">  {currentLang === 'ro' ? 'Trimite un mesaj' : 'Nachricht senden'}</h3> 
-<div className="mb-4">
-                               <label className="block text-black text-2xl mb-2 font-bold">{currentLang === 'ro' ? 'Nume' : 'Name'}</label>
-                               <input
+  <h3 className="text-3xl font-bold mb-4">  {currentLang === 'ro' ? 'Trimite un mesaj' : 'Nachricht senden'}</h3> 
+ <div className="mb-4">
+  <label className="block text-black text-2xl mb-2 font-bold">{currentLang === 'ro' ? 'Nume' : 'Name'}</label>
+ <input
   name="name"
   type="text"
   className="w-full rounded-lg border border-black-300 px-3 py-2"
 /> 
-                                 </div> 
-                                 <div className="mb-4">
-                                   <label className="block text-black text-2xl mb-2 font-bold">{currentLang === 'ro' ? 'Telefon' : 'Phone'}</label>
-                                    <input
+  </div> 
+  <div className="mb-4">
+ <label className="block text-black text-2xl mb-2 font-bold">{currentLang === 'ro' ? 'Telefon' : 'Phone'}</label>
+<input
   name="phone"
   type="text"
   className="w-full rounded-lg border border-black-300 px-3 py-2"
-/> 
-                                     </div> <div className="mb-4">
-                                       <label className="block text-black text-2xl mb-2 font-bold">{currentLang === 'ro' ? 'Mesaj' : 'Nachricht'}</label>
-                                       <textarea
+ /> 
+ </div> 
+  <div className="mb-4">
+  <label className="block text-black text-2xl mb-2 font-bold">{currentLang === 'ro' ? 'Mesaj' : 'Nachricht'}</label>
+ <textarea
   name="message"
   className="w-full rounded-lg border border-black-300 px-3 py-2"
   rows={5}
@@ -508,7 +501,9 @@ className="text-lg sm:text-xl md:text-3xl font-bold leading-relaxed text-center 
                                         </div>
                                          </section>
 <a 
-  href="https://wa.me/40793620876" 
+  href{/* WhatsApp Floating Button */}
+<a 
+  href="https://wa.me/436764199392?text=Hello%2C%20I%20visited%20your%20website%20and%20I%20would%20like%20more%20information." 
   target="_blank" 
   rel="noopener noreferrer"
   className="whatsapp-float"
