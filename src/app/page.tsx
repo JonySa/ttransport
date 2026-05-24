@@ -500,8 +500,7 @@ className="text-lg sm:text-xl md:text-3xl font-bold leading-relaxed text-center 
                                         </div> 
                                         </div>
                                          </section>
-<a 
-  href{/* WhatsApp Floating Button */}
+
 <a 
   href="https://wa.me/436764199392?text=Hello%2C%20I%20visited%20your%20website%20and%20I%20would%20like%20more%20information." 
   target="_blank" 
