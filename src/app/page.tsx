@@ -89,7 +89,7 @@ export default function Home() {
         <div className="max-w-8xl mx-auto px-3 py-3">
           <div className="flex flex-col md:flex-row items-center justify-between gap-3">
            <h1 className="text-2xl sm:text-3xl font-bold text-white font-serif flex items-center gap-1 text-center">
-   <span className="text-green-500">t</span>transport.at</h1>
+   <span className="text-green-500">t-</span>transport.at</h1>
 
             <div className="flex flex-col md:flex-row items-center gap-4">
               {/* Navigation */}
