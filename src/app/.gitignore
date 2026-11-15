@@ -1,0 +1,19 @@
+
+# Local environment files
+env.local
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Build files
+build/
+
+# Local deployment files
+.vercel/
