@@ -8,7 +8,6 @@ export async function POST(req: Request) {
 
     // === Use env, but fallback to hardcoded if not loaded ===
     const emailUser = process.env.EMAIL_USER || "ttransport.austria@gmail.com";
-    const emailPass = process.env.EMAIL_PASS || "sntbeezpcrudnfrh";
 
     console.log("=== ENV DEBUG ===");
     console.log("Using EMAIL_USER:", emailUser);
