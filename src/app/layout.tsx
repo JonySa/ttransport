@@ -1,39 +1,16 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "TTRANSPORT",
+  title: "TTRANSPORT | Transport, Umzüge & gebrauchte Elektrogeräte",
   description:
-    "Transport, Umzüge & Gebrauchte Elektrogeräte",
+    "TTRANSPORT bietet Transport, Umzüge und gebrauchte Elektrogeräte. Kontaktieren Sie uns für weitere Informationen und ein persönliches Angebot.",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: "TTRANSPORT | Transport, Umzüge & gebrauchte Elektrogeräte",
+    description:
+      "Transport, Umzüge und gebrauchte Elektrogeräte – kontaktieren Sie TTRANSPORT.",
+    type: "website",
+    locale: "de_DE",
+  },
 };
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="de">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-full antialiased`}
-      >
-        {children}
-        <Analytics />
-        <SpeedInsights />
-      </body>
-    </html>
-  );
-}
