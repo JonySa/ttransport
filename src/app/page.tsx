@@ -174,7 +174,7 @@ className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 text
 
   {/* CALL BUTTON */}
   <a
-    href="tel:+436764199392"
+    href="tel:+436605056709"
     className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg text-sm md:text-lg transition-all"
   >
     ☎ {t.home.callNow}
