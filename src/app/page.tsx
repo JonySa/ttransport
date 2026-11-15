@@ -436,7 +436,7 @@ className="text-lg sm:text-xl md:text-3xl font-bold leading-relaxed text-center 
     <h3 className="text-4xl font-bold mb-8">  </h3> 
         <div> 
           <h4 className="text-2xl font-bold mb-2">📞Telefon:</h4>
-            <p className="text-black  font-bold text-lg md:text-2xl">00436764199392</p>
+            <p className="text-black  font-bold text-lg md:text-2xl">00436605056709</p>
          </div>
         <div> 
           <h4 className="text-2xl font-bold mb-2">📍{currentLang === 'ro' ? 'Adresa:' : 'Adresse:'}</h4>
@@ -494,7 +494,9 @@ className="text-lg sm:text-xl md:text-3xl font-bold leading-relaxed text-center 
   className="w-full rounded-lg border border-black-300 px-3 py-2"
   rows={5}
 ></textarea>
-                                        </div> <button type="submit" className="w-full rounded-lg bg-blue-600 px-6 py-3 text-white font-semibold hover:bg-blue-700"> {currentLang === 'ro' ? 'Trimite mesaj' : 'Nachricht senden'} </button> 
+   </div> <button type="submit" className="w-full rounded-lg bg-blue-600 px-6 py-3 text-white font-semibold hover:bg-blue-700">
+     {currentLang === 'ro' ? 'Trimite mesaj' : 'Nachricht senden'}
+   </button> 
                                         </form> 
                                         </div> 
                                         </div> 
