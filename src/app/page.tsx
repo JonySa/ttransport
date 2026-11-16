@@ -89,7 +89,7 @@ export default function Home() {
         <div className="max-w-8xl mx-auto px-3 py-3">
           <div className="flex flex-col md:flex-row items-center justify-between gap-3">
            <h1 className="text-2xl sm:text-3xl font-bold text-white font-serif flex items-center gap-1 text-center">
-   <span className="text-green-500">t-</span>transport.at</h1>
+   <span className="text-green-500">t</span>transport.at</h1>
 
             <div className="flex flex-col md:flex-row items-center gap-4">
               {/* Navigation */}
@@ -520,7 +520,7 @@ className="text-lg sm:text-xl md:text-3xl font-bold leading-relaxed text-center 
         <div className="max-w-9xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             <div>
-              <h4 className="font-bold mb-4">TTRANSPORT</h4>
+              <h4 className="font-bold mb-4">ttransport.at</h4>
               
               <p className="text-gray-400">🚐{currentLang === 'ro' ? 'Transport rapid și sigur. Mutări fără stres.' : ' Schneller und sicherer Transport. Umzüge ohne Stress.'}</p>
             </div>
@@ -536,7 +536,7 @@ className="text-lg sm:text-xl md:text-3xl font-bold leading-relaxed text-center 
             </div>
           </div>
           <div className="border-t border-gray-700 pt-8 text-center text-gray-400">
-            <p>© 2026 TTRANSPORT -{currentLang === 'ro' ? 'Toate drepturile rezervate.' : ' Alle Rechte vorbehalten.'}</p>
+            <p>© 2026 ttransport.at -{currentLang === 'ro' ? 'Toate drepturile rezervate.' : ' Alle Rechte vorbehalten.'}</p>
           </div>
         </div>
       </footer>
