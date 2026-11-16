@@ -1,16 +1,26 @@
+
 export const metadata: Metadata = {
-  title: "TTRANSPORT | Transport, Umzüge & gebrauchte Elektrogeräte",
+  metadataBase: new URL("https://ttransport.at"),
+  title: {
+    default: "TTransport Innsbruck | Transporte, Umzüge & Elektrogeräte",
+    template: "%s | TTransport Innsbruck",
+  },
   description:
-    "TTRANSPORT bietet Transport, Umzüge und gebrauchte Elektrogeräte. Kontaktieren Sie uns für weitere Informationen und ein persönliches Angebot.",
+    "TTransport in Innsbruck: Zuverlässige Kleintransporte, Möbeltransporte, Umzüge und geprüfte gebrauchte Elektrogeräte. Jetzt unverbindlich anfragen!",
+  alternates: {
+    canonical: "/",
+  },
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: "TTRANSPORT | Transport, Umzüge & gebrauchte Elektrogeräte",
+    title: "TTransport Innsbruck | Transporte & Umzüge",
     description:
-      "Transport, Umzüge und gebrauchte Elektrogeräte – kontaktieren Sie TTRANSPORT.",
+      "Kleintransporte, Möbeltransporte, Umzüge und gebrauchte Elektrogeräte in Innsbruck und Umgebung.",
+    url: "https://ttransport.at",
+    siteName: "TTransport",
     type: "website",
-    locale: "de_DE",
+    locale: "de_AT",
   },
 };
