@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://ttransport.at"),
   title: {
     default: "ttransport",
-    template: "%s | TTransport Innsbruck",
+    template: "%s | ttransport",
   },
   description:
     "ttransport",
