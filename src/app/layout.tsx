@@ -19,11 +19,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://ttransport.at"),
   title: {
-    default: "TTransport Innsbruck | Transporte, Umzüge & Elektrogeräte",
+    default: "ttransport Innsbruck | Transporte, Umzüge & Elektrogeräte",
     template: "%s | TTransport Innsbruck",
   },
   description:
-    "TTransport in Innsbruck: Zuverlässige Kleintransporte, Möbeltransporte, Umzüge und geprüfte gebrauchte Elektrogeräte. Jetzt unverbindlich anfragen!",
+    "ttransport in Innsbruck: Zuverlässige Kleintransporte, Möbeltransporte, Umzüge und geprüfte gebrauchte Elektrogeräte. Jetzt unverbindlich anfragen!",
   alternates: {
     canonical: "/",
   },
@@ -32,11 +32,11 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "TTransport Innsbruck | Transporte & Umzüge",
+    title: "ttransport Innsbruck | Transporte & Umzüge",
     description:
       "Kleintransporte, Möbeltransporte, Umzüge und gebrauchte Elektrogeräte in Innsbruck und Umgebung.",
     url: "https://ttransport.at",
-    siteName: "TTransport",
+    siteName: "ttransport.at",
     type: "website",
     locale: "de_AT",
   },
