@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-  },
+  }, 
   openGraph: {
     title: "T-Transport Innsbruck",
     description:
