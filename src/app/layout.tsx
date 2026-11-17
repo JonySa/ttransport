@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   template: "%s | T-Transport Innsbruck",
 },
 description: "Ihr zuverlässiger Partner in Innsbruck für Umzüge, Schwertransporte, Entrümpelungen und geprüfte Second-Hand-Elektrogeräte in ganz Österreich.",
-,
+
   alternates: {
     canonical: "/",
   },
