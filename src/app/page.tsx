@@ -18,10 +18,9 @@ const translations = {
       requestQuote: 'Cere ofertă',
       seeServices: 'Vezi servicii',
       aboutSection: 'Despre noi',
-      aboutText: 'Suntem o echipă serioasă și punctuală, specializată în transport de marfă, mutări și manipularea obiectelor grele sau voluminoase.Debarasare și relocare rapidă și ușoară:Curățenie și mutări profesionale în Austria.. De asemenea, vindem electrocasnice second-hand în stare bună, testate și pregătite pentru utilizare.' 
-
-,
-      servicesSection: 'Serviciile noastre',
+      aboutText: ' Suntem o echipă de încredere și punctuală din Innsbruck, specializată în transporturi de marfă, mutări, precum și în manipularea în siguranță a obiectelor grele și voluminoase. De asemenea, oferim servicii profesionale de debarasare a pivnițelor și subsolurilor, inclusiv evacuarea regulamentară a deșeurilor, în toată Austria.În plus, vindem electrocasnice second-hand verificate și complet funcționale, în stare foarte bună – la cerere, cu livrare și instalare inclusă.',
+      
+     servicesSection: 'Serviciile noastre',
       whyChooseUs: 'De ce să ne alegi',
       affordablePrices: 'Prețuri accesibile',
       seriousness: 'Seriozitate și punctualitate',
@@ -50,8 +49,8 @@ const translations = {
       requestQuote: 'Angebot anfordern',
       seeServices: 'Services ansehen',
       aboutSection: 'Über uns',
-      aboutText: 'Wir sind ein ernsthafter und pünktliches Team, das sich auf Frachttransport, Umzüge und den Umgang mit schweren oder sperrigen Gegenständen spezialisiert hat.Ratz Fatz Räumung & Umzug:Professionelle Entrümpelungen und Übersiedlungen in Österreich.. Wir verkaufen auch Gebrauchtelektrogeräte in gutem Zustand, getestet und einsatzbereit. ',
-      servicesSection: 'Unsere Dienstleistungen',
+      aboutText: ' Wir sind ein zuverlässiges und pünktliches Team in Innsbruck, das sich auf Frachttransporte, Umzüge sowie den sicheren Umgang mit schweren und sperrigen Gegenständen spezialisiert hat. Zudem bieten wir professionelle Entrümpelungen von Kellern und Untergeschossen inklusive fachgerechter Entsorgung in ganz Österreich an.Darüber hinaus verkaufen wir geprüfte und voll funktionsfähige Second-Hand-Elektrogeräte in sehr gutem Zustand – auf Wunsch inklusive Lieferung und Anschluss.',
+        servicesSection: 'Unsere Dienstleistungen',
       whyChooseUs: 'Warum uns wählen',
       affordablePrices: 'Erschwingliche Preise',
       seriousness: 'Ernsthaftigkeit & Pünktlichkeit',
