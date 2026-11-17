@@ -195,7 +195,7 @@ className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 text
       </section>
 
       {/* About Section */}
-     <div className="max-w-6xl mx-auto">
+    <div id="about" className="max-w-6xl mx-auto">
        <h3 className="text-4xl font-bold mb-3 py-9 text-white text-center">
         {t.home.aboutSection}
        </h3>
