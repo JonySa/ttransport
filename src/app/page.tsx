@@ -536,7 +536,7 @@ className="text-lg sm:text-xl md:text-3xl font-bold leading-relaxed text-center 
             </div>
           </div>
           <div className="border-t border-gray-700 pt-8 text-center text-gray-400">
-            <p>© 2026 T-Transport Innsbruck. -{currentLang === 'ro' ? 'Toate drepturile rezervate.' : ' Alle Rechte vorbehalten.'}</p>
+            <p>© 2026 T-Transport Innsbruck -{currentLang === 'ro' ? 'Toate drepturile rezervate.' : ' Alle Rechte vorbehalten.'}</p>
           </div>
         </div>
       </footer>
