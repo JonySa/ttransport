@@ -377,13 +377,19 @@ async function handleContact(e: FormEvent<HTMLFormElement>) {
             {t.services.title}
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-            {serviceCards.map((card) => {
-              const title = t.services[card.key as keyof typeof t.services] as string;
-              const items = t.services[
-                `${card.key}Items` as keyof typeof t.services
-              ] as string[];
+   <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+  {serviceCards.map((card) => {
+    const title = t.services[card.key as keyof typeof t.services] as string;
 
+    const itemsKey =
+      card.key === 'appliances'
+        ? 'applianceItems'
+        : `${card.key}Items`;
+
+    const items = t.services[
+      itemsKey as keyof typeof t.services
+    ] as string[];
+      
               return (
                 <article
                   key={card.key}
