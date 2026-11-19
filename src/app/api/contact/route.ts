@@ -1,4 +1,3 @@
-
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
@@ -68,15 +67,12 @@ export async function POST(req: Request) {
         user: emailUser,
         pass: emailPass,
       },
-      logger: false,
-      debug: false,
     });
 
     await transporter.sendMail({
       from: emailUser,
       to: emailUser,
-      replyTo: phone.trim(),
-      subject: 'Mesaj nou de pe website',
+      subject: 'Mesaj nou de pe website - T-Transport Innsbruck',
       text: `
 Nume: ${name.trim()}
 Telefon: ${phone.trim()}
@@ -98,7 +94,6 @@ Mesaj: ${message.trim()}
   } catch (error: any) {
     console.error('Contact form error:', error);
 
-    // Temporar - arată eroarea reală ca să putem diagnostica
     return NextResponse.json(
       { 
         error: 'Unable to send your message.',
@@ -107,3 +102,4 @@ Mesaj: ${message.trim()}
       { status: 500 }
     );
   }
+}
