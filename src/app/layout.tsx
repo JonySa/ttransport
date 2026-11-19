@@ -17,20 +17,20 @@ const geistMono = Geist({
 });
 
 export const metadata: Metadata = {
-  
   metadataBase: new URL("https://ttransport.at"),
 
   title: {
-    default: "TTOM Innsbruck | Umzüge, Spedition & Entrümpelungen",
+    default: "TTOM Innsbruck | Umzugsunternehmen & Transporte",
     template: "%s | TTOM Innsbruck",
   },
 
   description:
-    "TTOM Innsbruck – Ihr Partner für Umzüge, Spedition, Gütertransporte, Möbeltransporte sowie Keller-, Dachboden- und Haushaltsentrümpelungen in Innsbruck und Tirol.",
+    "TTOM Innsbruck – Ihr zuverlässiger Partner für Umzüge, Möbeltransporte, Spedition und Entrümpelungen in Innsbruck, Tirol und ganz Österreich.",
 
   alternates: {
     canonical: "https://ttransport.at/",
   },
+};
 
   robots: {
     index: true,
