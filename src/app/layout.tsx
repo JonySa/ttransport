@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -10,34 +11,51 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
+const geistMono = Geist({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ttransport.at"),
   
+  metadataBase: new URL("https://ttransport.at"),
+
   title: {
-  default: "T-Transport Innsbruck – Umzüge, Transporte & Second-Hand Elektrogeräte",
-  template: "%s | T-Transport Innsbruck",
-},
-description: "Ihr zuverlässiger Partner in Innsbruck für Umzüge, Schwertransporte, Entrümpelungen und geprüfte Second-Hand-Elektrogeräte in ganz Österreich.",
+    default: "TTOM Innsbruck | Umzüge, Spedition & Entrümpelungen",
+    template: "%s | TTOM Innsbruck",
+  },
+
+  description:
+    "TTOM Innsbruck – Ihr Partner für Umzüge, Spedition, Gütertransporte, Möbeltransporte sowie Keller-, Dachboden- und Haushaltsentrümpelungen in Innsbruck und Tirol.",
 
   alternates: {
-    canonical: "/",
+    canonical: "https://ttransport.at/",
   },
+
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
+
   openGraph: {
-    title: "T-Transport Innsbruck",
-    description: "Ihr zuverlässiger Partner in Innsbruck für Umzüge, Schwertransporte, Entrümpelungen und geprüfte Second-Hand-Elektrogeräte in ganz Österreich.",
-    url: "https://ttransport.at",
-    siteName: "T-Transport Innsbruck",
-    type: "website",
+    title: "TTOM Innsbruck | Umzüge, Spedition & Entrümpelungen",
+    description:
+      "Umzüge, Möbeltransporte, Spedition und professionelle Entrümpelungen in Innsbruck und Tirol.",
+    url: "https://ttransport.at/",
+    siteName: "TTOM Innsbruck",
     locale: "de_AT",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "TTOM Innsbruck | Umzüge & Transporte",
+    description:
+      "Ihr Partner für Umzüge, Spedition und Entrümpelungen in Innsbruck und Tirol.",
   },
 };
 
