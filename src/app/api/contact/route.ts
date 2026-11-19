@@ -95,12 +95,15 @@ Mesaj: ${message.trim()}
       message: 'Mesajul a fost trimis!',
     });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Contact form error:', error);
 
+    // Temporar - arată eroarea reală ca să putem diagnostica
     return NextResponse.json(
-      { error: 'Unable to send your message. Please try again later.' },
+      { 
+        error: 'Unable to send your message.',
+        details: error?.message || String(error)
+      },
       { status: 500 }
     );
   }
-}
