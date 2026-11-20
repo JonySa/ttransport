@@ -213,12 +213,12 @@ const serviceCards = [
   },
   {
     key: 'clearing',
-    image: '/debarasare beci.jpg',
+    image: '/debarasari-beci.jpg',
     alt: 'Entrümpelung von Kellern und Untergeschossen',
   },
   {
     key: 'heavy',
-    image: '/mobilier greu.jpg',
+    image: '/mobilier-greu.jpg',
     alt: 'Transport schwerer Gegenstände',
   },
   {
