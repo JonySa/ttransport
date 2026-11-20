@@ -213,12 +213,12 @@ const serviceCards = [
   },
   {
     key: 'clearing',
-    image: '/poza9.png',
+    image: '/debarasare beci.jpg',
     alt: 'Entrümpelung von Kellern und Untergeschossen',
   },
   {
     key: 'heavy',
-    image: '/masina de spalat.png',
+    image: '/mobilier greu.jpg',
     alt: 'Transport schwerer Gegenstände',
   },
   {
