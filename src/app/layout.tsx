@@ -1,4 +1,5 @@
 
+
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -30,7 +31,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://ttransport.at/",
   },
-};
 
   robots: {
     index: true,
@@ -51,7 +51,6 @@ export const metadata: Metadata = {
     type: "website",
   },
 
-    
   twitter: {
     card: "summary_large_image",
     title: "TTOM Innsbruck | Umzüge & Transporte",
