@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import type { FormEvent } from 'react';
 
 
@@ -24,12 +24,12 @@ const translations = {
       services: 'Unsere Dienstleistungen',
     },
     about: {
-      title: 'Über TTOM',
+      title: 'Über TTOM Innsbruck',
       text:
         'Wir sind ein zuverlässiges und pünktliches Team in Innsbruck. Unsere Leistungen umfassen Umzüge, Spedition, Güter- und Möbeltransporte sowie den sicheren Transport schwerer und sperriger Gegenstände. Außerdem übernehmen wir Entrümpelungen von Kellern, Untergeschossen, Dachböden und Wohnungen. Auf Wunsch bieten wir auch geprüfte gebrauchte Elektrogeräte an. Kontaktieren Sie uns für ein unverbindliches Angebot.',
     },
     services: {
-      title: 'Unsere Dienstleistungen',
+      title: 'Transportlösungen & Dienstleistungen',
       moving: 'Umzüge & Möbeltransporte',
       movingItems: [
         'Wohnungs- und Hausumzüge',
@@ -78,7 +78,34 @@ const translations = {
         'Sorgfältiger Umgang mit Gegenständen',
         'Flexible Terminvereinbarung',
       ],
+ whyDescriptions: [
+  'Transparente und faire Angebote.',
+  'Wir legen Wert auf Pünktlichkeit.',
+  'Sorgfältiger Umgang mit Ihren Gegenständen.',
+  'Termine nach Vereinbarung.',
+  'Wir nehmen uns Zeit für Ihre Wünsche.',
+],
     },
+    quote: {
+  title: 'Angebot anfordern',
+  subtitle: 'Füllen Sie das Formular aus. Wir melden uns bei Ihnen.',
+  email: 'E-Mail',
+  service: 'Gewünschte Dienstleistung',
+  choose: 'Bitte auswählen',
+  services: [
+    'Umzüge & Möbeltransporte',
+    'Spedition & Gütertransporte',
+    'Entrümpelungen & Räumungen',
+    'Schwertransporte',
+    'Gebrauchte Elektrogeräte',
+  ],
+  pickup: 'Abholort',
+  destination: 'Zielort',
+  date: 'Wunschtermin',
+  details: 'Weitere Informationen',
+  placeholder: 'Beschreiben Sie Ihren Transport...',
+  submit: 'Angebot anfordern',
+},
     gallery: 'Galerie',
     currentImage: 'Aktuelles Bild',
     previous: 'Zurück',
@@ -116,12 +143,12 @@ const translations = {
       services: 'Serviciile noastre',
     },
     about: {
-      title: 'Despre TTOM',
+      title: 'Despre TTOM Innsbruck',
       text:
         'Suntem o echipă serioasă și punctuală din Innsbruck. Oferim servicii de mutări, expediții, transport de marfă și mobilier, precum și transportul obiectelor grele și voluminoase. Ne ocupăm și de debarasarea pivnițelor, subsolurilor, podurilor și locuințelor. De asemenea, oferim electrocasnice second-hand verificate, la cerere. Contactează-ne pentru o ofertă fără obligații.',
     },
     services: {
-      title: 'Serviciile noastre',
+      title: 'Soluții de transport și servicii',
       moving: 'Mutări și transport mobilier',
       movingItems: [
         'Mutări de apartamente și case',
@@ -170,7 +197,34 @@ const translations = {
         'Manipularea atentă a obiectelor',
         'Programări flexibile',
       ],
+      whyDescriptions: [
+  'Oferte transparente și prețuri corecte.',
+  'Punem accent pe punctualitate și seriozitate.',
+  'Manipulăm cu grijă bunurile dumneavoastră.',
+  'Programări flexibile, la înțelegere.',
+  'Acordăm atenție dorințelor și nevoilor dumneavoastră.',
+],
     },
+    quote: {
+  title: 'Solicită o ofertă',
+  subtitle: 'Completează formularul și te vom contacta.',
+  email: 'E-mail',
+  service: 'Serviciul dorit',
+  choose: 'Alege serviciul',
+  services: [
+    'Mutări și transport mobilier',
+    'Expediții și transport marfă',
+    'Debarasări și evacuări',
+    'Transport obiecte grele',
+    'Electrocasnice second-hand',
+  ],
+  pickup: 'Locul de preluare',
+  destination: 'Destinația',
+  date: 'Data dorită',
+  details: 'Informații suplimentare',
+  placeholder: 'Descrie transportul de care ai nevoie...',
+  submit: 'Solicită o oferta',
+},
     gallery: 'Galerie',
     currentImage: 'Imaginea curentă',
     previous: 'Anterior',
@@ -228,6 +282,7 @@ const serviceCards = [
   },
 ];
 
+
 export default function Home() {
   const [currentLang, setCurrentLang] = useState<Language>('de');
   const [galleryIndex, setGalleryIndex] = useState(0);
@@ -235,6 +290,34 @@ export default function Home() {
 
   const t = translations[currentLang];
 
+  // Referința caruselului de servicii
+  const servicesTrackRef = useRef<HTMLDivElement>(null);
+
+  // Funcția pentru butoanele caruselului
+  const scrollServices = (direction: number) => {
+    const track = servicesTrackRef.current;
+    if (!track) return;
+
+    const card = track.querySelector('article');
+    if (!card) return;
+
+    const gap = 24;
+    const distance = card.getBoundingClientRect().width + gap;
+
+    if (
+      direction === 1 &&
+      track.scrollLeft + track.clientWidth >= track.scrollWidth - 10
+    ) {
+      track.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      track.scrollBy({
+        left: direction * distance,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  // Galerie: schimbarea automată a imaginilor
   useEffect(() => {
     const interval = setInterval(() => {
       setGalleryIndex((prev) => (prev + 1) % galleryImages.length);
@@ -243,35 +326,61 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  // Servicii: derularea automată a caruselului
+  useEffect(() => {
+    const interval = setInterval(() => {
+      scrollServices(1);
+    }, 4500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+
 async function handleContact(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  e.preventDefault();
 
-    const form = e.currentTarget;
-    const formData = {
-      name: (form.elements.namedItem('name') as HTMLInputElement).value,
-      phone: (form.elements.namedItem('phone') as HTMLInputElement).value,
-      message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
-    };
+  const form = e.currentTarget;
 
-    setSending(true);
+  const formData = {
+    name: (form.elements.namedItem('name') as HTMLInputElement).value,
+    phone: (form.elements.namedItem('phone') as HTMLInputElement).value,
+    email: (form.elements.namedItem('email') as HTMLInputElement).value,
+    service: (form.elements.namedItem('service') as HTMLSelectElement).value,
+    pickup: (form.elements.namedItem('pickup') as HTMLInputElement).value,
+    destination: (form.elements.namedItem('destination') as HTMLInputElement).value,
+    date: (form.elements.namedItem('date') as HTMLInputElement).value,
+    message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
+  };
 
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+  setSending(true);
 
-      if (!res.ok) throw new Error('Contact request failed');
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
 
-      alert(t.sent);
-      form.reset();
-    } catch {
-      alert(t.error);
-    } finally {
-      setSending(false);
+    const result = await res.json();
+
+    if (!res.ok) {
+      throw new Error(result.error || 'Contact request failed');
     }
+
+    alert(t.sent);
+    form.reset();
+
+  } catch (error) {
+    console.error('Contact form error:', error);
+    alert(t.error);
+
+  } finally {
+    setSending(false);
   }
+}
+
 
   return (
     <main className="min-h-screen text-black">
@@ -362,82 +471,176 @@ async function handleContact(e: FormEvent<HTMLFormElement>) {
         </div>
       </section>
 
-      <section id="about" className="max-w-6xl mx-auto py-10 px-4">
-        <h2 className="text-4xl font-bold mb-8 text-white text-center">
-          {t.about.title}
-        </h2>
-        <p className="text-lg sm:text-xl md:text-2xl font-semibold leading-relaxed text-center text-white">
-          {t.about.text}
-        </p>
-      </section>
+     
+<section id="about" className="max-w-6xl mx-auto py-10 px-4">
+<div className="flex flex-col items-center mb-12">
+  <div className="inline-block">
+    <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight text-center text-white">
+      {t.about.title}
+    </h2>
 
-      <section id="services" className="py-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold mb-16 text-center text-white">
-            {t.services.title}
-          </h2>
+    <div className="green-animated-line mt-4" />
+  </div>
+</div>
 
-   <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-  {serviceCards.map((card) => {
-    const title = t.services[card.key as keyof typeof t.services] as string;
+  <p className="text-lg sm:text-xl md:text-2xl font-semibold leading-relaxed text-center text-white">
+    {t.about.text}
+  </p>
+</section>
 
-    const itemsKey =
-      card.key === 'appliances'
-        ? 'applianceItems'
-        : `${card.key}Items`;
 
-    const items = t.services[
-      itemsKey as keyof typeof t.services
-    ] as string[];
-      
-              return (
-                <article
-                  key={card.key}
-                  className="bg-black/50 backdrop-blur-md p-6 rounded-3xl shadow-2xl flex flex-col items-center"
-                >
-                  <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-6 text-center min-h-[90px] flex items-center">
-                    {title}
-                  </h3>
+<section id="services" className="py-20 px-6">
+  <div className="max-w-7xl mx-auto">
 
-                  <img
-                    src={card.image}
-                    alt={card.alt}
-                    className="w-full h-[250px] object-cover rounded-2xl shadow-xl mb-6"
-                  />
+    <div className="flex flex-col items-center mb-12">
+  <div className="inline-block">
+    <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight text-center text-white">
+      {t.services.title}
+    </h2>
 
-                  <ul className="text-white font-bold space-y-4 w-full">
-                    {items.map((item) => (
-                      <li key={item}>✓ {item}</li>
-                    ))}
-                  </ul>
-                </article>
-              );
-            })}
+    <div className="green-animated-line mt-4" />
+  </div>
+</div>
 
-            <article className="bg-black/50 backdrop-blur-md p-6 rounded-3xl shadow-2xl flex flex-col items-center">
-              <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-6 text-center min-h-[90px] flex items-center">
-                {t.services.why}
-              </h3>
+
+    {/* CONTROALE CARUSEL */}
+    <div className="flex justify-end gap-3 mb-6">
+      <button
+        type="button"
+        onClick={() => scrollServices(-1)}
+        aria-label="Serviciul anterior"
+        className="w-12 h-12 rounded-full bg-white/10 border border-white/30 text-white text-2xl hover:bg-yellow-400 hover:text-black transition"
+      >
+        ‹
+      </button>
+
+      <button
+        type="button"
+        onClick={() => scrollServices(1)}
+        aria-label="Serviciul următor"
+        className="w-12 h-12 rounded-full bg-white/10 border border-white/30 text-white text-2xl hover:bg-yellow-400 hover:text-black transition"
+      >
+        ›
+      </button>
+    </div>
+
+    {/* CARUSEL */}
+    <div
+      ref={servicesTrackRef}
+     className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+    >
+      {serviceCards.map((card) => {
+        const title = t.services[card.key as keyof typeof t.services] as string;
+
+        const itemsKey =
+          card.key === 'appliances'
+            ? 'applianceItems'
+            : `${card.key}Items`;
+
+        const items = t.services[
+          itemsKey as keyof typeof t.services
+        ] as string[];
+
+        return (
+          <article
+            key={card.key}
+            className="group flex-shrink-0 w-full md:w-[calc(50%-12px)] xl:w-[calc(33.333%-16px)] snap-start bg-black/60 backdrop-blur-md rounded-3xl overflow-hidden shadow-2xl border border-white/10 hover:border-yellow-400/60 hover:shadow-yellow-400/10 transition-all duration-500 flex flex-col"
+          >
+            <div className="relative overflow-hidden">
               <img
-                src="/poza9.png"
-                alt="Warum TTOM wählen"
-                className="w-full h-[250px] object-cover rounded-2xl shadow-xl mb-6"
+                src={card.image}
+                alt={card.alt}
+                className="w-full h-[250px] object-cover group-hover:scale-105 transition-transform duration-700"
               />
-              <ul className="text-white font-bold space-y-4 w-full">
-                {t.services.whyItems.map((item) => (
-                  <li key={item}>✓ {item}</li>
-                ))}
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
 
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            </div>
+
+            <div className="p-7 flex flex-col flex-grow">
+  <div className="min-h-[75px] flex items-center justify-center mb-6">
+    <h3 className="text-2xl md:text-3xl font-extrabold text-white text-center">
+      <span className="inline-block">
+        {title}
+        <span className="block w-full h-1 bg-white rounded-full mt-3" />
+      </span>
+    </h3>
+  </div>
+
+  <ul className="text-white/90 font-medium space-y-4 w-full flex-grow">
+    {items.map((item) => (
+      <li key={item} className="flex items-start gap-3">
+        <span className="text-white font-bold">✓</span>
+        <span>{item}</span>
+      </li>
+    ))}
+  </ul>
+</div>
+          </article>
+        );
+      })}
+    </div>
+
+  </div>
+</section>
+
+<section id="why-us" className="py-16 px-6">
+  <div className="max-w-7xl mx-auto">
+
+    <div className="flex flex-col items-center mb-12">
+  <div className="inline-block">
+    <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight text-center text-white">
+      {t.services.why}
+    </h2>
+
+    <div className="green-animated-line mt-4" />
+  </div>
+</div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      {[
+        { icon: '€', index: 0 },
+        { icon: '✓', index: 1 },
+        { icon: '↗', index: 2 },
+        { icon: '◷', index: 3 },
+        { icon: '♡', index: 4 },
+      ].map((item) => (
+
+        <article
+          key={item.index}
+          className="bg-black/50 backdrop-blur-md border border-green-500/30 rounded-2xl p-7 text-center shadow-xl hover:border-green-400 hover:-translate-y-1 transition-all duration-300"
+        >
+
+          <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-green-600/20 border border-green-500 flex items-center justify-center">
+
+            <span className="text-4xl font-bold text-green-400">
+              {item.icon}
+            </span>
+
+          </div>
+
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
+            {t.services.whyItems[item.index]}
+          </h3>
+
+          <p className="text-gray-300 leading-relaxed">
+            {t.services.whyDescriptions[item.index]}
+          </p>
+
+        </article>
+
+      ))}
+
+    </div>
+  </div>
+</section>
       <section id="gallery" className="py-16 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-white">
-            {t.gallery}
-          </h2>
+         <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-6 text-center text-white">
+  {currentLang === 'de'
+    ? 'Einblicke in unsere Arbeit'
+    : 'Activitatea noastră în imagini'}
+</h2>
 
           <div className="relative overflow-hidden rounded-3xl shadow-2xl bg-white">
             <div className="h-96 md:h-[520px]">
@@ -491,116 +694,317 @@ async function handleContact(e: FormEvent<HTMLFormElement>) {
         </div>
       </section>
 
-      <section id="reviews" className="py-10 px-6">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center text-yellow-400">
-            {t.reviews} ★★★★★
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              ['Sehr professionell und schnell. Ich empfehle mit Vertrauen!', 'Jhon'],
-              ['Der Umzug war problemlos und zu einem guten Preis.', 'Ella'],
-              ['Ich empfehle es uneingeschränkt.', 'Dan'],
-            ].map(([review, author]) => (
-              <article key={author} className="bg-white rounded-3xl p-8 shadow-lg">
-                <p className="text-gray-700 italic text-lg">"{review} ★★★★★"</p>
-                <p className="text-gray-600 mt-4 font-semibold">- {author}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+     
 
-      <section
-        id="contact"
-        className="bg-cover bg-center py-10 px-6"
-        style={{ backgroundImage: 'url(/poza8.png)' }}
+<section id="reviews" className="py-10 px-4 sm:px-6 bg-gray-50">
+  <div className="max-w-6xl mx-auto">
+   <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-tight mb-3 text-center text-gray-800">
+  {currentLang === 'de' ? 'Kundenstimmen' : 'Recenzii Google'}
+</h2>
+
+    <p className="text-center text-gray-500 mb-7">
+      {currentLang === 'de'
+        ? 'Echte Meinungen unserer Kunden'
+        : 'Părerile reale ale clienților noștri'}
+    </p>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      {[
+        {
+          name: 'Cristian tom Zaharia',
+          text: 'Super profesioniști, cei mai buni!',
+          de: 'Sehr professionell, die Besten!',
+          date: '1',
+          url: 'https://www.google.com/maps/contrib/101221322458135675015/reviews?hl=ro-RO'
+        },
+        {
+          name: 'Mihaela Zaharia',
+          text: 'Super rapid și simplu. Foarte prietenos și un preț bun.',
+          de: 'Super schnell und unkompliziert. Sehr freundlich und ein guter Preis.',
+          date: '3',
+          url: 'https://www.google.com/maps/contrib/114189488992810715518/reviews?hl=ro-RO'
+        },
+        {
+          name: 'Ana Borcea',
+          text: 'Foarte frumos și ordonat, sunt foarte mulțumit.',
+          de: 'Sehr schön und ordentlich, ich bin sehr zufrieden.',
+          date: '4',
+          url: 'https://www.google.com/maps/contrib/104888401362845788561/reviews?hl=ro-RO'
+        },
+        {
+          name: 'Lucian Adrian',
+          text: 'Recomand, folosesc serviciul lor de peste un an!',
+          de: 'Sehr empfehlenswert, ich nutze ihren Service seit über einem Jahr!',
+          date: '4',
+          url: 'https://www.google.com/maps/contrib/112422180182653621078/reviews?hl=ro-RO'
+        }
+      ].map((review) => (
+        <article
+          key={review.name}
+          className="bg-white rounded-2xl p-5 sm:p-6 shadow-md border border-gray-100 hover:shadow-lg transition">
+        
+          <div className="text-yellow-400 text-2xl mb-4">
+            ★★★★★
+          </div>
+
+          <p className="text-gray-700 text-base leading-relaxed mb-4">
+            „{currentLang === 'de' ? review.de : review.text}”
+          </p>
+
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="font-bold text-gray-800">
+                {review.name}
+              </p>
+              <p className="text-sm text-gray-400">
+                Google {currentLang === 'de' ? 'Bewertung' : 'Recenzie'}
+              </p>
+            </div>
+
+            <a
+              href={review.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 text-sm font-semibold"
+            >
+              Google ↗
+            </a>
+          </div>
+        </article>
+      ))}
+
+    </div>
+
+    <div className="text-center mt-10">
+      <a
+        href="https://www.google.com/search?q=TTransport+Innsbruck"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-8 py-3 rounded-full shadow-md transition"
       >
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-black">
-            {t.contact}
-          </h2>
+        {currentLang === 'de'
+          ? 'Alle Google-Bewertungen ansehen'
+          : 'Vezi toate recenziile Google'}
+      </a>
+    </div>
+  </div>
+</section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-2xl font-bold mb-2">📞 {t.phone}</h3>
-                <a
-                  href="tel:+436605056709"
-                  className="text-black font-bold text-xl"
-                >
-                  +43 660 5056709
-                </a>
-              </div>
 
-              <div>
-                <h3 className="text-2xl font-bold mb-2">📍 {t.address}</h3>
-                <p className="text-black font-bold text-xl">
-                  Egerdachstraße 34, 6020 Innsbruck
-                </p>
-              </div>
 
-              <div>
-                <h3 className="text-2xl font-bold mb-2">⏰ {t.hours}</h3>
-                <p className="text-black font-bold text-xl">{t.days}</p>
-              </div>
-            </div>
+      
+<section
+  id="contact"
+  className="bg-cover bg-center py-10 px-6"
+  style={{ backgroundImage: 'url(/poza8.png)' }}
+>
+  <div className="max-w-7xl mx-auto">
+    <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-10 text-center text-black">
+  {t.contact}
+</h2>
+   
+<div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
 
-            <div className="bg-white/90 p-8 rounded-lg shadow-lg">
-              <form onSubmit={handleContact}>
-                <h3 className="text-3xl font-bold mb-4">{t.formTitle}</h3>
+  {/* COLOANA 1 - HARTA */}
+  <div className="lg:col-span-1 bg-white/90 rounded-2xl shadow-xl border border-white/50 overflow-hidden min-h-[320px]">
+    <iframe
+      title="TTOM Innsbruck - Google Maps"
+      src="https://www.google.com/maps?q=Egerdachstra%C3%9Fe%2034%2C%206020%20Innsbruck%2C%20Austria&output=embed"
+      width="100%"
+      height="100%"
+      style={{ border: 0, minHeight: '320px' }}
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+      allowFullScreen
+    />
+  </div>
 
-                <div className="mb-4">
-                  <label htmlFor="contact-name" className="block text-black text-lg mb-2 font-bold">
-                    {t.name}
-                  </label>
-                  <input
-                    id="contact-name"
-                    name="name"
-                    type="text"
-                    required
-                    className="w-full rounded-lg border border-gray-400 px-3 py-2"
-                  />
-                </div>
+  {/* COLOANA 2 - INFORMATII CONTACT */}
+  <div className="lg:col-span-1 bg-white/90 rounded-2xl shadow-xl border border-white/50 p-5 flex flex-col justify-center gap-7">
+<h3 className="text-2xl font-extrabold text-gray-900 text-center border-b border-green-600 pb-3">
+  {currentLang === 'de' ? 'Kontaktinformationen' : 'Informații de contact'}
+</h3>
+    <div>
+      <h3 className="text-lg font-bold mb-2 text-gray-900">
+        📞 {t.phone}
+      </h3>
+      <a href="tel:+436605056709" className="text-green-800 font-bold text-lg">
+        +43 660 5056709
+      </a>
+      <p className="text-gray-600 text-sm mt-2 leading-relaxed">
+  {currentLang === 'de'
+    ? 'Rufen Sie uns an für ein Angebot oder weitere Informationen.'
+    : 'Sună-ne pentru o ofertă sau informații suplimentare.'}
+</p>
+    </div>
 
-                <div className="mb-4">
-                  <label htmlFor="contact-phone" className="block text-black text-lg mb-2 font-bold">
-                    {t.phone}
-                  </label>
-                  <input
-                    id="contact-phone"
-                    name="phone"
-                    type="tel"
-                    required
-                    className="w-full rounded-lg border border-gray-400 px-3 py-2"
-                  />
-                </div>
+    <div>
+      <h3 className="text-lg font-bold mb-2 text-gray-900">
+        📍 {t.address}
+      </h3>
+      <p className="text-gray-800 font-semibold text-base">
+        Egerdachstraße 34, 6020 Innsbruck
+      </p>
+      <p className="text-gray-600 text-sm mt-2 leading-relaxed">
+  {currentLang === 'de'
+    ? 'Sie finden uns an unserem Standort in Innsbruck.'
+    : 'Ne găsești la sediul nostru din Innsbruck.'}
+</p>
+    </div>
 
-                <div className="mb-4">
-                  <label htmlFor="contact-message" className="block text-black text-lg mb-2 font-bold">
-                    {t.message}
-                  </label>
-                  <textarea
-                    id="contact-message"
-                    name="message"
-                    required
-                    className="w-full rounded-lg border border-gray-400 px-3 py-2"
-                    rows={5}
-                  />
-                </div>
+    <div>
+      <h3 className="text-lg font-bold mb-2 text-gray-900">
+        ⏰ {t.hours}
+      </h3>
+      <p className="text-gray-800 font-semibold text-base">
+        {t.days}
+      </p>
+      <p className="text-gray-600 text-sm mt-2 leading-relaxed">
+  {currentLang === 'de'
+    ? 'Wir sind für Ihre Anfragen und Terminvereinbarungen erreichbar.'
+    : 'Suntem disponibili pentru solicitările și programările tale.'}
+</p>
+    </div>
 
-                <button
-                  type="submit"
-                  disabled={sending}
-                  className="w-full rounded-lg bg-blue-600 px-6 py-3 text-white font-semibold hover:bg-blue-700 disabled:opacity-60"
-                >
-                  {sending ? '...' : t.send}
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
+  </div>
+
+  {/* COLOANA 3 - FORMULAR OFERTA */}
+  <div className="lg:col-span-2 bg-white/95 p-5 md:p-6 rounded-2xl shadow-xl border border-gray-200">
+    <form onSubmit={handleContact} className="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-1">
+
+      <h3 className="md:col-span-2 text-2xl font-bold mb-1 text-gray-900 text-center">
+        {t.quote.title}
+      </h3>
+
+      <p className="md:col-span-2 text-gray-600 text-sm mb-4 text-center">
+        {t.quote.subtitle}
+      </p>
+
+      <div className="mb-2">
+        <label htmlFor="contact-name" className="block text-black mb-1 font-bold">
+          {t.name}
+        </label>
+        <input
+          id="contact-name"
+          name="name"
+          type="text"
+          required
+          className="w-full rounded-lg border border-gray-400 px-3 py-2 text-black"
+        />
+      </div>
+
+      <div className="mb-2">
+        <label htmlFor="contact-phone" className="block text-black mb-1 font-bold">
+          {t.phone}
+        </label>
+        <input
+          id="contact-phone"
+          name="phone"
+          type="tel"
+          required
+          className="w-full rounded-lg border border-gray-400 px-3 py-2 text-black"
+        />
+      </div>
+
+      <div className="mb-2">
+        <label htmlFor="contact-email" className="block text-black mb-1 font-bold">
+          {t.quote.email}
+        </label>
+        <input
+          id="contact-email"
+          name="email"
+          type="email"
+          required
+          className="w-full rounded-lg border border-gray-400 px-3 py-2 text-black"
+        />
+      </div>
+
+      <div className="mb-2">
+        <label htmlFor="contact-service" className="block text-black mb-1 font-bold">
+          {t.quote.service}
+        </label>
+        <select
+          id="contact-service"
+          name="service"
+          required
+          defaultValue=""
+          className="w-full rounded-lg border border-gray-400 px-3 py-2 text-black"
+        >
+          <option value="" disabled>{t.quote.choose}</option>
+          {t.quote.services.map((service) => (
+            <option key={service} value={service}>{service}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="mb-2">
+        <label htmlFor="contact-pickup" className="block text-black mb-1 font-bold">
+          {t.quote.pickup}
+        </label>
+        <input
+          id="contact-pickup"
+          name="pickup"
+          type="text"
+          required
+          className="w-full rounded-lg border border-gray-400 px-3 py-2 text-black"
+        />
+      </div>
+
+      <div className="mb-2">
+        <label htmlFor="contact-destination" className="block text-black mb-1 font-bold">
+          {t.quote.destination}
+        </label>
+        <input
+          id="contact-destination"
+          name="destination"
+          type="text"
+          required
+          className="w-full rounded-lg border border-gray-400 px-3 py-2 text-black"
+        />
+      </div>
+
+      <div className="mb-2">
+        <label htmlFor="contact-date" className="block text-black mb-1 font-bold">
+          {t.quote.date}
+        </label>
+        <input
+          id="contact-date"
+          name="date"
+          type="date"
+          className="w-full rounded-lg border border-gray-400 px-3 py-2 text-black"
+        />
+      </div>
+
+      <div className="mb-2">
+        <label htmlFor="contact-message" className="block text-black mb-1 font-bold">
+          {t.quote.details}
+        </label>
+        <textarea
+          id="contact-message"
+          name="message"
+          rows={3}
+          required
+          placeholder={t.quote.placeholder}
+          className="w-full rounded-lg border border-gray-400 px-3 py-2 text-black"
+        />
+      </div>
+
+      <button
+        type="submit"
+        disabled={sending}
+        className="md:col-span-2 w-full mt-3 rounded-lg bg-green-700 hover:bg-green-800 px-5 py-2.5 text-white font-semibold text-base transition disabled:opacity-60"
+      >
+        {sending ? '...' : t.quote.submit}
+      </button>
+
+    </form>
+  </div>
+
+</div>
+
+  </div>
+</section>
 
       <a
         href="https://wa.me/436605056709?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20Ihre%20Dienstleistungen."
@@ -612,31 +1016,50 @@ async function handleContact(e: FormEvent<HTMLFormElement>) {
         💬
       </a>
 
-      <footer className="text-white border-t-4 border-white py-8 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-            <div>
-              <h3 className="font-bold text-xl mb-4">TTOM Innsbruck</h3>
-              <p className="text-gray-300">🚐 {t.footer}</p>
-            </div>
+     
+<footer className="text-white border-t-2 border-white/70 py-4 px-6">
+  <div className="max-w-7xl mx-auto">
 
-            <div>
-              <h3 className="font-bold mb-4">{t.links}</h3>
-              <ul className="text-gray-300 flex flex-wrap gap-4 font-semibold">
-                <li><a href="#home">{t.nav.home}</a></li>
-                <li><a href="#services">{t.nav.services}</a></li>
-                <li><a href="#about">{t.nav.about}</a></li>
-                <li><a href="#gallery">{t.nav.gallery}</a></li>
-                <li><a href="#contact">{t.nav.contact}</a></li>
-              </ul>
-            </div>
-          </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
 
-          <div className="border-t border-gray-700 pt-8 text-center text-gray-300">
-            <p>© {new Date().getFullYear()} TTOM Innsbruck – {t.rights}</p>
-          </div>
-        </div>
-      </footer>
+      <div>
+        <h3 className="font-bold text-lg mb-1">
+          TTOM Innsbruck
+        </h3>
+        <p className="text-gray-300 text-sm">
+          🚐 {t.footer}
+        </p>
+      </div>
+
+      <div>
+        <h3 className="font-bold text-sm mb-2">
+          {t.links}
+        </h3>
+        <ul className="text-gray-300 flex flex-wrap gap-x-4 gap-y-2 text-sm font-semibold">
+          <li><a href="#home" className="hover:text-white transition">{t.nav.home}</a></li>
+          <li><a href="#services" className="hover:text-white transition">{t.nav.services}</a></li>
+          <li><a href="#about" className="hover:text-white transition">{t.nav.about}</a></li>
+          <li><a href="#gallery" className="hover:text-white transition">{t.nav.gallery}</a></li>
+          <li><a href="#contact" className="hover:text-white transition">{t.nav.contact}</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div className="border-t border-gray-700 pt-3 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-gray-400">
+
+      <p>
+        © {new Date().getFullYear()} TTOM Innsbruck – {t.rights}
+      </p>
+
+      <p className="font-medium">
+        Made with ❤️ by <span className="text-white font-bold">Ramona</span>
+      </p>
+
+    </div>
+  </div>
+</footer>
+
     </main>
   );
 }

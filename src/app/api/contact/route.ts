@@ -1,7 +1,7 @@
+
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
-// Escape user input before inserting it into email HTML
 function escapeHtml(value: string): string {
   return value.replace(/[&<>"']/g, (char) => {
     const entities: Record<string, string> = {
@@ -20,35 +20,62 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const { name, phone, message } = body;
+    const {
+      name,
+      phone,
+      email,
+      service,
+      pickup,
+      destination,
+      date,
+      message,
+    } = body;
 
-    // Validate form data
-    if (
-      typeof name !== 'string' ||
-      typeof phone !== 'string' ||
-      typeof message !== 'string' ||
-      !name.trim() ||
-      !phone.trim() ||
-      !message.trim()
-    ) {
-      return NextResponse.json(
-        { error: 'Please complete all fields.' },
-        { status: 400 }
-      );
+    // Validare câmpuri obligatorii
+    const requiredFields = {
+      name,
+      phone,
+      email,
+      service,
+      pickup,
+      destination,
+      message,
+    };
+
+    for (const [field, value] of Object.entries(requiredFields)) {
+      if (typeof value !== 'string' || !value.trim()) {
+        return NextResponse.json(
+          { error: `Câmpul ${field} este obligatoriu.` },
+          { status: 400 }
+        );
+      }
     }
 
     if (
       name.length > 100 ||
       phone.length > 30 ||
+      email.length > 254 ||
+      service.length > 150 ||
+      pickup.length > 200 ||
+      destination.length > 200 ||
+      (typeof date !== 'string' || date.length > 20) ||
       message.length > 5000
     ) {
       return NextResponse.json(
-        { error: 'Form input is too long.' },
+        { error: 'Unele informații sunt prea lungi sau invalide.' },
         { status: 400 }
       );
     }
 
-    // Read credentials from environment variables
+    const cleanEmail = email.trim();
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
+      return NextResponse.json(
+        { error: 'Adresa de e-mail nu este validă.' },
+        { status: 400 }
+      );
+    }
+
     const emailUser = process.env.EMAIL_USER;
     const emailPass = process.env.EMAIL_PASS;
 
@@ -56,7 +83,7 @@ export async function POST(req: Request) {
       console.error('Email service is not configured');
 
       return NextResponse.json(
-        { error: 'Email service is temporarily unavailable.' },
+        { error: 'Serviciul de e-mail nu este disponibil momentan.' },
         { status: 500 }
       );
     }
@@ -69,36 +96,63 @@ export async function POST(req: Request) {
       },
     });
 
+    const clean = (value: string) => value.trim();
+
     await transporter.sendMail({
       from: emailUser,
       to: emailUser,
-      subject: 'Mesaj nou de pe website - T-Transport Innsbruck',
+      replyTo: cleanEmail,
+      subject: 'Cerere nouă de ofertă - TTOM Innsbruck',
+
       text: `
-Nume: ${name.trim()}
-Telefon: ${phone.trim()}
-Mesaj: ${message.trim()}
+CERERE NOUĂ DE OFERTĂ - TTOM INNSBRUCK
+
+Nume: ${clean(name)}
+Telefon: ${clean(phone)}
+E-mail: ${cleanEmail}
+
+Serviciu solicitat: ${clean(service)}
+Loc de preluare: ${clean(pickup)}
+Destinație: ${clean(destination)}
+Data dorită: ${typeof date === 'string' && date.trim() ? clean(date) : 'Nu a fost specificată'}
+
+Informații suplimentare:
+${clean(message)}
       `,
+
       html: `
-        <h2>Mesaj nou de pe website</h2>
-        <p><strong>Nume:</strong> ${escapeHtml(name.trim())}</p>
-        <p><strong>Telefon:</strong> ${escapeHtml(phone.trim())}</p>
-        <p><strong>Mesaj:</strong> ${escapeHtml(message.trim())}</p>
+        <h2>Cerere nouă de ofertă - TTOM Innsbruck</h2>
+
+        <h3>Date client</h3>
+        <p><strong>Nume:</strong> ${escapeHtml(clean(name))}</p>
+        <p><strong>Telefon:</strong> ${escapeHtml(clean(phone))}</p>
+        <p><strong>E-mail:</strong> ${escapeHtml(cleanEmail)}</p>
+
+        <h3>Detalii transport</h3>
+        <p><strong>Serviciu:</strong> ${escapeHtml(clean(service))}</p>
+        <p><strong>Loc de preluare:</strong> ${escapeHtml(clean(pickup))}</p>
+        <p><strong>Destinație:</strong> ${escapeHtml(clean(destination))}</p>
+        <p><strong>Data dorită:</strong> ${
+          typeof date === 'string' && date.trim()
+            ? escapeHtml(clean(date))
+            : 'Nu a fost specificată'
+        }</p>
+
+        <h3>Informații suplimentare</h3>
+        <p>${escapeHtml(clean(message)).replace(/\n/g, '<br>')}</p>
       `,
     });
 
     return NextResponse.json({
       success: true,
-      message: 'Mesajul a fost trimis!',
+      message: 'Cererea a fost trimisă cu succes!',
     });
 
-  } catch (error: any) {
+  } catch (error) {
     console.error('Contact form error:', error);
 
     return NextResponse.json(
-      { 
-        error: 'Unable to send your message.',
-        details: error?.message || String(error)
-      },
+      { error: 'Nu am putut trimite cererea. Încearcă din nou.' },
       { status: 500 }
     );
   }
