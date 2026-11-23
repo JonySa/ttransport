@@ -806,19 +806,22 @@ async function handleContact(e: FormEvent<HTMLFormElement>) {
    
 <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
 
-  {/* COLOANA 1 - HARTA */}
-  <div className="lg:col-span-1 bg-white/90 rounded-2xl shadow-xl border border-white/50 overflow-hidden min-h-[320px]">
-    <iframe
-      title="TTOM Innsbruck - Google Maps"
-      src="https://www.google.com/maps?q=Egerdachstra%C3%9Fe%2034%2C%206020%20Innsbruck%2C%20Austria&output=embed"
-      width="100%"
-      height="100%"
-      style={{ border: 0, minHeight: '320px' }}
-      loading="lazy"
-      referrerPolicy="no-referrer-when-downgrade"
-      allowFullScreen
-    />
-  </div>
+ 
+{/* COLOANA 1 - HARTA */}
+<div className="lg:col-span-1 bg-white/90 rounded-2xl shadow-xl border border-white/50 overflow-hidden min-h-[320px]">
+  <iframe
+    title="TTOM Innsbruck - Standort"
+    src="https://maps.google.com/maps?q=47.268646,11.413836&z=19&output=embed"
+
+    width="100%"
+    height="100%"
+    style={{ border: 0, minHeight: '320px' }}
+    loading="lazy"
+    referrerPolicy="no-referrer-when-downgrade"
+    allowFullScreen
+  />
+</div>
+
 
   {/* COLOANA 2 - INFORMATII CONTACT */}
   <div className="lg:col-span-1 bg-white/90 rounded-2xl shadow-xl border border-white/50 p-5 flex flex-col justify-center gap-7">
