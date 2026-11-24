@@ -807,20 +807,76 @@ async function handleContact(e: FormEvent<HTMLFormElement>) {
 <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
 
  
-{/* COLOANA 1 - HARTA */}
-<div className="lg:col-span-1 bg-white/90 rounded-2xl shadow-xl border border-white/50 overflow-hidden min-h-[320px]">
-  <iframe
-    title="TTOM Innsbruck - Standort"
-    src="https://maps.google.com/maps?q=47.268646,11.413836&z=19&output=embed"
 
-    width="100%"
-    height="100%"
-    style={{ border: 0, minHeight: '320px' }}
-    loading="lazy"
-    referrerPolicy="no-referrer-when-downgrade"
-    allowFullScreen
-  />
+
+
+{/* SPALTE 1 - KARTE UND FIRMENDATEN */}
+<div className="lg:col-span-1 bg-white/95 rounded-2xl shadow-xl border border-white/50 overflow-hidden flex flex-col">
+
+  {/* GOOGLE MAPS KARTE */}
+  <div className="w-full h-[280px]">
+    <iframe
+      title="TTOM Innsbruck - Standort"
+      src="https://maps.google.com/maps?q=47.2686595,11.4137567&z=17&output=embed"
+      width="100%"
+      height="100%"
+      style={{ border: 0, display: 'block' }}
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+      allowFullScreen
+    />
+  </div>
+
+  {/* FIRMENDATEN */}
+  <div className="p-6 flex flex-col flex-grow">
+
+    <h3 className="text-2xl font-bold text-gray-900 mb-3">
+      TTOM Innsbruck
+    </h3>
+
+    <div className="flex items-start gap-3 mb-3">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="21"
+        height="21"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="text-green-600 flex-shrink-0 mt-1"
+      >
+        <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+        <circle cx="12" cy="10" r="2.5" />
+      </svg>
+
+      <p className="text-gray-700 leading-relaxed">
+        Egerdachstraße 34, 6020 Innsbruck, Österreich
+      </p>
+    </div>
+
+    <p className="text-sm text-gray-500 mb-5">
+      Standort unseres Lagers
+    </p>
+
+    {/* GOOGLE MAPS BUTTON */}
+    <a
+      href="https://www.google.com/maps/place/TTOM+Innsbruck+%7C+Umzugsunternehmen+%26+Transporte/@47.2686595,11.4137567,17z/data=!4m14!1m7!3m6!1s0x479d69005da55cf1:0x286aec45be586d7e!2sTTOM+Innsbruck+%7C+Umzugsunternehmen+%26+Transporte!8m2!3d47.2686595!4d11.4137567!16s%2Fg%2F11_1qcqpbp!3m5!1s0x479d69005da55cf1:0x286aec45be586d7e!8m2!3d47.2686595!4d11.4137567!16s%2Fg%2F11_1qcqpbp?entry=ttu"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mt-auto w-full min-h-[58px] flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold text-base transition-colors duration-300 rounded-xl"
+    >
+      In Google Maps öffnen
+    </a>
+
+    <p className="text-xs text-gray-500 text-center mt-3">
+      Öffnen Sie unseren Standort in Google Maps und lassen Sie sich bequem eine Route anzeigen.
+    </p>
+
+  </div>
 </div>
+
 
 
   {/* COLOANA 2 - INFORMATII CONTACT */}
