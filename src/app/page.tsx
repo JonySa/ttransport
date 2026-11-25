@@ -696,99 +696,87 @@ async function handleContact(e: FormEvent<HTMLFormElement>) {
 
      
 
-<section id="reviews" className="py-10 px-4 sm:px-6 bg-gray-50">
-  <div className="max-w-6xl mx-auto">
-   <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-tight mb-3 text-center text-gray-800">
-  {currentLang === 'de' ? 'Kundenstimmen' : 'Recenzii Google'}
-</h2>
 
-    <p className="text-center text-gray-500 mb-7">
+{/* GOOGLE REVIEWS SECTION */}
+<section
+  id="reviews"
+  className="py-10 px-4 sm:px-6 bg-gray-900"
+>
+  <div className="max-w-5xl mx-auto">
+
+    {/* TITLU */}
+    <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-center text-white mb-2">
       {currentLang === 'de'
-        ? 'Echte Meinungen unserer Kunden'
-        : 'Părerile reale ale clienților noștri'}
+        ? 'Kundenbewertungen'
+        : 'Recenzii Google'}
+    </h2>
+
+    <p className="text-center text-gray-400 text-sm sm:text-base mb-6">
+      {currentLang === 'de'
+        ? 'Ihre Meinung ist uns wichtig!'
+        : 'Părerea dumneavoastră contează pentru noi!'}
     </p>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {/* GOOGLE RATING CARD */}
+    <div className="max-w-lg mx-auto bg-gray-800/80 border border-gray-700 rounded-3xl shadow-2xl p-5 sm:p-7 text-center">
 
-      {[
-        {
-          name: 'Cristian tom Zaharia',
-          text: 'Super profesioniști, cei mai buni!',
-          de: 'Sehr professionell, die Besten!',
-          date: '1',
-          url: 'https://www.google.com/maps/contrib/101221322458135675015/reviews?hl=ro-RO'
-        },
-        {
-          name: 'Mihaela Zaharia',
-          text: 'Super rapid și simplu. Foarte prietenos și un preț bun.',
-          de: 'Super schnell und unkompliziert. Sehr freundlich und ein guter Preis.',
-          date: '3',
-          url: 'https://www.google.com/maps/contrib/114189488992810715518/reviews?hl=ro-RO'
-        },
-        {
-          name: 'Ana Borcea',
-          text: 'Foarte frumos și ordonat, sunt foarte mulțumit.',
-          de: 'Sehr schön und ordentlich, ich bin sehr zufrieden.',
-          date: '4',
-          url: 'https://www.google.com/maps/contrib/104888401362845788561/reviews?hl=ro-RO'
-        },
-        {
-          name: 'Lucian Adrian',
-          text: 'Recomand, folosesc serviciul lor de peste un an!',
-          de: 'Sehr empfehlenswert, ich nutze ihren Service seit über einem Jahr!',
-          date: '4',
-          url: 'https://www.google.com/maps/contrib/112422180182653621078/reviews?hl=ro-RO'
-        }
-      ].map((review) => (
-        <article
-          key={review.name}
-          className="bg-white rounded-2xl p-5 sm:p-6 shadow-md border border-gray-100 hover:shadow-lg transition">
-        
-          <div className="text-yellow-400 text-2xl mb-4">
-            ★★★★★
-          </div>
+      {/* GOOGLE */}
+      <div className="flex items-center justify-center gap-3 mb-5">
+        <span className="text-3xl font-bold">
+          <span className="text-[#4285F4]">G</span>
+          <span className="text-[#EA4335]">o</span>
+          <span className="text-[#FBBC05]">o</span>
+          <span className="text-[#4285F4]">g</span>
+          <span className="text-[#34A853]">l</span>
+          <span className="text-[#EA4335]">e</span>
+        </span>
+      </div>
 
-          <p className="text-gray-700 text-base leading-relaxed mb-4">
-            „{currentLang === 'de' ? review.de : review.text}”
-          </p>
+      {/* NOTA */}
+      <div className="text-5xl sm:text-6xl font-extrabold text-white mb-3">
+        5,0
+        <span className="text-2xl text-gray-400"> / 5,0</span>
+      </div>
 
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <p className="font-bold text-gray-800">
-                {review.name}
-              </p>
-              <p className="text-sm text-gray-400">
-                Google {currentLang === 'de' ? 'Bewertung' : 'Recenzie'}
-              </p>
-            </div>
+      {/* STELE */}
+      <div className="text-yellow-400 text-4xl tracking-widest mb-3">
+        ★★★★★
+      </div>
 
-            <a
-              href={review.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 text-sm font-semibold"
-            >
-              Google ↗
-            </a>
-          </div>
-        </article>
-      ))}
+      {/* NUMAR RECENZII */}
+      <p className="text-gray-300 text-base sm:text-lg mb-8">
+        {currentLang === 'de'
+          ? '7 Rezensionen auf Google'
+          : '7 recenzii pe Google'}
+      </p>
 
-    </div>
-
-    <div className="text-center mt-10">
+      {/* BUTON GOOGLE */}
       <a
-        href="https://www.google.com/search?q=TTransport+Innsbruck"
+        href="https://www.google.com/maps/place/TTOM+Innsbruck+%7C+Umzugsunternehmen+%26+Transporte/@47.2686631,11.4111764,17z/data=!4m8!3m7!1s0x479d69005da55cf1:0x286aec45be586d7e!8m2!3d47.2686595!4d11.4137567!9m1!1b1!16s%2Fg%2F11_1qcqpbp?entry=ttu"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-8 py-3 rounded-full shadow-md transition"
+        className="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold text-base sm:text-lg px-8 py-4 rounded-xl shadow-lg transition-all duration-300 hover:scale-[1.02]"
       >
         {currentLang === 'de'
-          ? 'Alle Google-Bewertungen ansehen'
-          : 'Vezi toate recenziile Google'}
+          ? 'Alle Bewertungen auf Google ansehen'
+          : 'Vezi toate recenziile pe Google'}
+
+        <span className="text-xl">↗</span>
       </a>
+
     </div>
+
+    {/* MESAJ FINAL */}
+    <p className="text-center text-gray-500 text-sm mt-7">
+      {currentLang === 'de'
+        ? 'Vielen Dank für Ihr Vertrauen in TTOM Innsbruck!'
+        : 'Vă mulțumim pentru încrederea acordată TTOM Innsbruck!'}
+    </p>
+
   </div>
+
+
+   
 </section>
 
 
