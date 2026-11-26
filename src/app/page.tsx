@@ -1088,6 +1088,15 @@ async function handleContact(e: FormEvent<HTMLFormElement>) {
           <li><a href="#about" className="hover:text-white transition">{t.nav.about}</a></li>
           <li><a href="#gallery" className="hover:text-white transition">{t.nav.gallery}</a></li>
           <li><a href="#contact" className="hover:text-white transition">{t.nav.contact}</a></li>
+          <li><a href="/impressum" className="hover:text-green-400 transition">
+            Impressum
+          </a>
+        </li>
+        <li>
+          <a href="/datenschutz" className="hover:text-green-400 transition">
+            Datenschutz
+  </a>
+</li>
         </ul>
       </div>
 
