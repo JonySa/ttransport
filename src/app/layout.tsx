@@ -64,13 +64,59 @@ export default function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  return (
-    <html lang="de">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-        <Analytics />
-        <SpeedInsights />
-      </body>
-    </html>
-  );
+
+  
+return (
+  <html lang="de">
+    <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "TTOM Innsbruck",
+            legalName: "Zaharia Cristian-Tom",
+            url: "https://ttransport.at",
+            telephone: "+43 660 5056709",
+            email: "ttransport.austria@gmail.com",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "Dörferstraße 20, Tür 1",
+              postalCode: "6063",
+              addressLocality: "Rum",
+              addressCountry: "AT",
+            },
+            areaServed: [
+              {
+                "@type": "City",
+                name: "Innsbruck",
+              },
+              {
+                "@type": "AdministrativeArea",
+                name: "Tirol",
+              },
+              {
+                "@type": "Country",
+                name: "Austria",
+              },
+            ],
+            knowsAbout: [
+              "Umzüge",
+              "Möbeltransporte",
+              "Gütertransporte",
+              "Entrümpelungen",
+              "Transport gebrauchter Haushaltsgeräte",
+            ],
+          }),
+        }}
+      />
+
+      {children}
+      <Analytics />
+      <SpeedInsights />
+    </body>
+  </html>
+);
+
 }
