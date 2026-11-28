@@ -4,6 +4,94 @@
 import { useEffect, useState, useRef } from 'react';
 import type { FormEvent } from 'react';
 
+function HeroldReviews() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const iframe = document.createElement('iframe');
+
+    
+iframe.srcdoc = `
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style>
+        html, body {
+          margin: 0;
+          padding: 0;
+          background: transparent;
+          overflow: auto;
+          text-align: center;
+        }
+      </style>
+    </head>
+    <body>
+      <div id="herold-ratings"></div>
+
+      <script src="https://www.herold.at/meinherold/getReviewsWidget.do?sid=2122682&type=XS"><\/script>
+
+      <script>
+        const colorHerold = () => {
+          const elements = [...document.querySelectorAll('body *')];
+
+          const matches = elements
+            .filter(el => el.children.length === 0 &&
+              el.textContent.trim().startsWith('TTOM Innsbruck'));
+
+          if (matches.length > 0) {
+            const band = matches[0].parentElement;
+
+            band.style.backgroundColor = '#FFD500';
+            band.style.color = '#30383b';
+            band.style.width = '100%';
+            band.style.boxSizing = 'border-box';
+            band.style.padding = '4px 6px';
+band.style.fontSize = '13px';
+band.style.lineHeight = '1.2';
+band.style.fontWeight = 'bold';
+
+            return true;
+          }
+
+          return false;
+        };
+
+        const observer = new MutationObserver(() => {
+          if (colorHerold()) observer.disconnect();
+        });
+
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+
+        setTimeout(colorHerold, 500);
+        setTimeout(colorHerold, 1500);
+        setTimeout(() => observer.disconnect(), 8000);
+      <\/script>
+    </body>
+  </html>
+`;
+
+
+    iframe.style.width = '100%';
+    iframe.style.height = '260px';
+    iframe.style.border = '0';
+    iframe.style.background = 'transparent';
+
+    container.appendChild(iframe);
+
+    return () => {
+      iframe.remove();
+    };
+  }, []);
+
+  return <div ref={containerRef} className="w-full" />;
+}
 
 type Language = 'de' | 'ro';
 
@@ -283,10 +371,77 @@ const serviceCards = [
 ];
 
 
+function WhyUsCard({
+  icon,
+  title,
+  description,
+  index,
+}: {
+  icon: string;
+  title: string;
+  description: string;
+  index: number;
+}) {
+  const cardRef = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0,
+        rootMargin: '0px 0px -40px 0px',
+      }
+    );
+
+    observer.observe(card);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <article
+      ref={cardRef}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateX(0)' : 'translateX(-100px)',
+        transition: 'opacity 800ms ease, transform 800ms ease',
+        transitionDelay: `${index * 250}ms`,
+      }}
+      className="bg-black/50 backdrop-blur-md border border-green-500/30 rounded-2xl p-7 text-center shadow-xl hover:border-green-400 hover:-translate-y-1 transition-colors duration-300"
+    >
+      <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-green-600/20 border border-green-500 flex items-center justify-center">
+        <span className="text-4xl font-bold text-green-400">
+          {icon}
+        </span>
+      </div>
+
+      <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
+        {title}
+      </h3>
+
+      <p className="text-gray-300 leading-relaxed">
+        {description}
+      </p>
+    </article>
+  );
+}
+
+
+
 export default function Home() {
   const [currentLang, setCurrentLang] = useState<Language>('de');
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [sending, setSending] = useState(false);
+    const [showGoogleMap, setShowGoogleMap] = useState(false);
 
   const t = translations[currentLang];
 
@@ -598,106 +753,34 @@ async function handleContact(e: FormEvent<HTMLFormElement>) {
 
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-      {[
-        { icon: '€', index: 0 },
-        { icon: '✓', index: 1 },
-        { icon: '↗', index: 2 },
-        { icon: '◷', index: 3 },
-        { icon: '♡', index: 4 },
-      ].map((item) => (
+      
+{[
+  { icon: '€', index: 0 },
+  { icon: '✓', index: 1 },
+  { icon: '↗', index: 2 },
+  { icon: '◷', index: 3 },
+  { icon: '♡', index: 4 },
+].map((item) => (
+  <WhyUsCard
+    key={item.index}
+    icon={item.icon}
+    title={t.services.whyItems[item.index]}
+    description={t.services.whyDescriptions[item.index]}
+    index={item.index}
+  />
+))}
 
-        <article
-          key={item.index}
-          className="bg-black/50 backdrop-blur-md border border-green-500/30 rounded-2xl p-7 text-center shadow-xl hover:border-green-400 hover:-translate-y-1 transition-all duration-300"
-        >
-
-          <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-green-600/20 border border-green-500 flex items-center justify-center">
-
-            <span className="text-4xl font-bold text-green-400">
-              {item.icon}
-            </span>
-
-          </div>
-
-          <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
-            {t.services.whyItems[item.index]}
-          </h3>
-
-          <p className="text-gray-300 leading-relaxed">
-            {t.services.whyDescriptions[item.index]}
-          </p>
-
-        </article>
-
-      ))}
 
     </div>
   </div>
 </section>
-      <section id="gallery" className="py-16 px-6">
-        <div className="max-w-6xl mx-auto">
-         <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-6 text-center text-white">
-  {currentLang === 'de'
-    ? 'Einblicke in unsere Arbeit'
-    : 'Activitatea noastră în imagini'}
-</h2>
-
-          <div className="relative overflow-hidden rounded-3xl shadow-2xl bg-white">
-            <div className="h-96 md:h-[520px]">
-              <img
-                src={galleryImages[galleryIndex]}
-                alt={`TTOM Innsbruck – ${t.gallery} ${galleryIndex + 1}`}
-                className="h-full w-full object-cover"
-              />
-            </div>
-
-            <div className="absolute inset-x-0 bottom-6 flex justify-center gap-3">
-              {galleryImages.map((_, index) => (
-                <button
-                  key={index}
-                  aria-label={`Bild ${index + 1}`}
-                  aria-pressed={galleryIndex === index}
-                  onClick={() => setGalleryIndex(index)}
-                  className={`h-3 w-3 rounded-full ${
-                    galleryIndex === index ? 'bg-white' : 'bg-white/40'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center text-white">
-            <p>
-              {t.currentImage} {galleryIndex + 1}
-            </p>
-            <div className="flex gap-3">
-              <button
-                onClick={() =>
-                  setGalleryIndex(
-                    (prev) => (prev - 1 + galleryImages.length) % galleryImages.length
-                  )
-                }
-                className="rounded-full bg-blue-600 px-5 py-2 text-white"
-              >
-                ◀ {t.previous}
-              </button>
-              <button
-                onClick={() =>
-                  setGalleryIndex((prev) => (prev + 1) % galleryImages.length)
-                }
-                className="rounded-full bg-blue-600 px-5 py-2 text-white"
-              >
-                {t.next} ▶
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
      
 
 
-{/* GOOGLE REVIEWS SECTION */}
+
+{/* GOOGLE & HEROLD REVIEWS SECTION */}
 <section
   id="reviews"
   className="py-10 px-4 sm:px-6 bg-gray-900"
@@ -708,61 +791,79 @@ async function handleContact(e: FormEvent<HTMLFormElement>) {
     <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-center text-white mb-2">
       {currentLang === 'de'
         ? 'Kundenbewertungen'
-        : 'Recenzii Google'}
+        : 'Recenzii clienți'}
     </h2>
 
-    <p className="text-center text-gray-400 text-sm sm:text-base mb-6">
+    <p className="text-center text-gray-400 text-sm sm:text-base mb-8">
       {currentLang === 'de'
         ? 'Ihre Meinung ist uns wichtig!'
         : 'Părerea dumneavoastră contează pentru noi!'}
     </p>
 
-    {/* GOOGLE RATING CARD */}
-    <div className="max-w-lg mx-auto bg-gray-800/80 border border-gray-700 rounded-3xl shadow-2xl p-5 sm:p-7 text-center">
+    {/* DOUA CARDURI */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-      {/* GOOGLE */}
-      <div className="flex items-center justify-center gap-3 mb-5">
-        <span className="text-3xl font-bold">
-          <span className="text-[#4285F4]">G</span>
-          <span className="text-[#EA4335]">o</span>
-          <span className="text-[#FBBC05]">o</span>
-          <span className="text-[#4285F4]">g</span>
-          <span className="text-[#34A853]">l</span>
-          <span className="text-[#EA4335]">e</span>
-        </span>
+      {/* GOOGLE CARD */}
+      <div className="bg-gray-800/80 border border-gray-700 rounded-3xl shadow-2xl p-5 sm:p-7 text-center">
+
+        <div className="flex items-center justify-center gap-3 mb-5">
+          <span className="text-3xl font-bold">
+            <span className="text-[#4285F4]">G</span>
+            <span className="text-[#EA4335]">o</span>
+            <span className="text-[#FBBC05]">o</span>
+            <span className="text-[#4285F4]">g</span>
+            <span className="text-[#34A853]">l</span>
+            <span className="text-[#EA4335]">e</span>
+          </span>
+        </div>
+
+        <div className="text-5xl sm:text-6xl font-extrabold text-white mb-3">
+          5,0
+          <span className="text-2xl text-gray-400"> / 5,0</span>
+        </div>
+
+        <div className="text-yellow-400 text-4xl tracking-widest mb-3">
+          ★★★★★
+        </div>
+
+        <p className="text-gray-300 text-base sm:text-lg mb-8">
+          {currentLang === 'de'
+            ? '7 Rezensionen auf Google'
+            : '7 recenzii pe Google'}
+        </p>
+
+        <a
+          href="https://www.google.com/maps/place/TTOM+Innsbruck+%7C+Umzugsunternehmen+%26+Transporte/@47.2686631,11.4111764,17z/data=!4m8!3m7!1s0x479d69005da55cf1:0x286aec45be586d7e!8m2!3d47.2686595!4d11.4137567!9m1!1b1!16s%2Fg%2F11_1qcqpbp?entry=ttu"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-3 w-full bg-green-600 hover:bg-green-700 text-white font-bold text-base px-5 py-4 rounded-xl shadow-lg transition-all duration-300 hover:scale-[1.02]"
+        >
+          {currentLang === 'de'
+            ? 'Alle Google-Bewertungen ansehen'
+            : 'Vezi toate recenziile Google'}
+          <span className="text-xl">↗</span>
+        </a>
+
       </div>
 
-      {/* NOTA */}
-      <div className="text-5xl sm:text-6xl font-extrabold text-white mb-3">
-        5,0
-        <span className="text-2xl text-gray-400"> / 5,0</span>
+      {/* HEROLD CARD */}
+      <div className="bg-gray-800/80 border border-gray-700 rounded-3xl shadow-2xl p-5 sm:p-7 text-center">
+
+        <div className="text-3xl font-extrabold text-white mb-5">
+          herold<span className="text-green-500">.at</span>
+        </div>
+
+        <p className="text-gray-300 text-base sm:text-lg mb-6">
+          {currentLang === 'de'
+            ? 'Bewertungen auf Herold'
+            : 'Recenzii pe Herold'}
+        </p>
+
+        <div className="min-h-[90px] flex items-center justify-center overflow-hidden">
+          <HeroldReviews />
+        </div>
+
       </div>
-
-      {/* STELE */}
-      <div className="text-yellow-400 text-4xl tracking-widest mb-3">
-        ★★★★★
-      </div>
-
-      {/* NUMAR RECENZII */}
-      <p className="text-gray-300 text-base sm:text-lg mb-8">
-        {currentLang === 'de'
-          ? '7 Rezensionen auf Google'
-          : '7 recenzii pe Google'}
-      </p>
-
-      {/* BUTON GOOGLE */}
-      <a
-        href="https://www.google.com/maps/place/TTOM+Innsbruck+%7C+Umzugsunternehmen+%26+Transporte/@47.2686631,11.4111764,17z/data=!4m8!3m7!1s0x479d69005da55cf1:0x286aec45be586d7e!8m2!3d47.2686595!4d11.4137567!9m1!1b1!16s%2Fg%2F11_1qcqpbp?entry=ttu"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold text-base sm:text-lg px-8 py-4 rounded-xl shadow-lg transition-all duration-300 hover:scale-[1.02]"
-      >
-        {currentLang === 'de'
-          ? 'Alle Bewertungen auf Google ansehen'
-          : 'Vezi toate recenziile pe Google'}
-
-        <span className="text-xl">↗</span>
-      </a>
 
     </div>
 
@@ -774,11 +875,7 @@ async function handleContact(e: FormEvent<HTMLFormElement>) {
     </p>
 
   </div>
-
-
-   
 </section>
-
 
 
       
