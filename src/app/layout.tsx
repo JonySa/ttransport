@@ -20,13 +20,13 @@ const geistMono = Geist({
 export const metadata: Metadata = {
   metadataBase: new URL("https://ttransport.at"),
 
-  title: {
-    default: "TTOM Innsbruck | Umzugsunternehmen & Transporte",
-    template: "%s | TTOM Innsbruck",
-  },
+ title: {
+  default: "TTOM Innsbruck | Umzug, Möbeltransport & Entrümpelung",
+  template: "%s | TTOM Innsbruck",
+},
 
-  description:
-    "TTOM Innsbruck – Ihr zuverlässiger Partner für Umzüge, Möbeltransporte, Spedition und Entrümpelungen in Innsbruck, Tirol und ganz Österreich.",
+description:
+  "TTOM Innsbruck – Ihr zuverlässiges Umzugsunternehmen für Privatumzüge, Möbeltransporte, Entrümpelungen und Transporte in Innsbruck, Tirol und ganz Österreich.",
 
   alternates: {
     canonical: "https://ttransport.at/",
