@@ -116,47 +116,50 @@ const translations = {
       text:
         'Wir sind ein zuverlässiges und pünktliches Team in Innsbruck. Unsere Leistungen umfassen Umzüge, Spedition, Güter- und Möbeltransporte sowie den sicheren Transport schwerer und sperriger Gegenstände. Außerdem übernehmen wir Entrümpelungen von Kellern, Untergeschossen, Dachböden und Wohnungen. Auf Wunsch bieten wir auch geprüfte gebrauchte Elektrogeräte an. Kontaktieren Sie uns für ein unverbindliches Angebot.',
     },
-    services: {
-      title: 'Transportlösungen & Dienstleistungen',
-      moving: 'Umzüge & Möbeltransporte',
-      movingItems: [
-        'Wohnungs- und Hausumzüge',
-        'Möbeltransporte',
-        'Transport von Elektrogeräten',
-        'Haushaltstransporte',
-        'Möbelabholung und Lieferung',
-      ],
-      freight: 'Spedition & Gütertransporte',
-      freightItems: [
-        'Gütertransporte',
-        'Waren- und Stückguttransporte',
-        'Transport von Haushaltsgegenständen',
-        'Abholung und Zustellung',
-        'Transport nach Vereinbarung',
-      ],
-      clearing: 'Entrümpelungen & Räumungen',
-      clearingItems: [
-        'Kellerentrümpelungen',
-        'Räumung von Untergeschossen',
-        'Dachbodenräumungen',
-        'Wohnungs- und Haushaltsräumungen',
-        'Abtransport von nicht mehr benötigten Gegenständen',
-      ],
-      heavy: 'Schwertransporte',
-      heavyItems: [
-        'Kühlschränke',
-        'Waschmaschinen',
-        'Sofas und Schränke',
-        'Schwere Möbel',
-        'Sperrige Haushaltsgeräte',
-      ],
-      appliances: 'Gebrauchte Elektrogeräte',
-      applianceItems: [
-        'Geprüfte Kühlschränke',
-        'Waschmaschinen',
-        'Herde und Öfen',
-        'Weitere Haushaltsgeräte',
-        'Lieferung nach Vereinbarung',
+   
+services: {
+  title: 'Umzüge, Transporte & Entrümpelungen in Innsbruck',
+  moving: 'Umzugsunternehmen & Möbeltransporte',
+  movingItems: [
+    'Privatumzüge und Wohnungsumzüge in Innsbruck und Tirol',
+    'Hausumzüge und Möbeltransporte',
+    'Transport von Elektrogeräten und Haushaltsgeräten',
+    'Haushaltstransporte und Möbeltransporte',
+    'Möbelabholung und Möbellieferung',
+  ],
+  freight: 'Gütertransporte & Transportservice',
+  freightItems: [
+    'Gütertransporte in Innsbruck und ganz Tirol',
+    'Waren- und Stückguttransporte',
+    'Transport von Haushaltsgegenständen',
+    'Abholung und Zustellung von Waren',
+    'Österreichweite Transporte nach Vereinbarung',
+  ],
+  clearing: 'Entrümpelung & Haushaltsauflösung',
+  clearingItems: [
+    'Kellerentrümpelung in Innsbruck und Umgebung',
+    'Räumung von Untergeschossen',
+    'Dachbodenentrümpelung und Dachbodenräumung',
+    'Wohnungsräumungen und Haushaltsauflösungen',
+    'Abtransport nicht mehr benötigter Gegenstände',
+  ],
+  heavy: 'Schwere Möbel & sperrige Gegenstände',
+  heavyItems: [
+    'Transport von Kühlschränken',
+    'Transport von Waschmaschinen',
+    'Transport von Sofas und Schränken',
+    'Transport schwerer Möbel',
+    'Transport sperriger Haushaltsgeräte',
+  ],
+  appliances: 'Gebrauchte Elektro- und Haushaltsgeräte',
+  applianceItems: [
+    'Geprüfte gebrauchte Kühlschränke',
+    'Gebrauchte Waschmaschinen',
+    'Gebrauchte Herde und Öfen',
+    'Weitere gebrauchte Haushaltsgeräte',
+    'Lieferung nach Vereinbarung',
+  
+
       ],
       why: 'Warum TTOM wählen?',
       whyItems: [
@@ -342,33 +345,35 @@ const galleryImages = [
   '/poza7.webp',
 ];
 
+
 const serviceCards = [
   {
     key: 'moving',
     image: '/duba.webp',
-    alt: 'Umzüge und Möbeltransporte',
+    alt: 'Umzugsunternehmen in Innsbruck – Umzüge und Möbeltransporte mit TTOM Innsbruck',
   },
   {
     key: 'freight',
     image: '/poza04.jpeg',
-    alt: 'Spedition und Gütertransporte',
+    alt: 'Gütertransporte und Warenlieferungen in Innsbruck und Tirol',
   },
   {
     key: 'clearing',
     image: '/debarasari-beci.jpg',
-    alt: 'Entrümpelung von Kellern und Untergeschossen',
+    alt: 'Kellerentrümpelung und Haushaltsräumung in Innsbruck und Umgebung',
   },
   {
     key: 'heavy',
     image: '/mobilier-greu.jpg',
-    alt: 'Transport schwerer Gegenstände',
+    alt: 'Transport schwerer Möbel und sperriger Gegenstände in Tirol',
   },
   {
     key: 'appliances',
     image: '/masina de spalat.png',
-    alt: 'Gebrauchte Elektrogeräte',
+    alt: 'Gebrauchte Waschmaschinen und Elektrogeräte mit Lieferung nach Vereinbarung',
   },
 ];
+
 
 
 function WhyUsCard({
